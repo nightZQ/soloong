@@ -1,6 +1,0 @@
-[submodule "srcs/libft"]
-	path = srcs/libft
-	url = git@github.com:nightZQ/libft.git
-[submodule "srcs/mlx"]
-	path = srcs/mlx
-	url = https://github.com/42Paris/minilibx-linux
