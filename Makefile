@@ -42,7 +42,7 @@ FLAG ?= 0
 AR = ar rcs
 RM = rm -rf
 
-#toggle to disable Address Sanitizer
+#toggle to disable Address Sanitizer for debug usage
 ifeq ($(FLAG), 1)
 	CFLAGS = -Wall -Wextra -Werror -I$(INCLUDES)
 else
