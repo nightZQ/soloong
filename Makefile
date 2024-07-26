@@ -1,6 +1,7 @@
+#___program_name___#
 NAME = so_long
 
-#color code
+#___color_code___#
 RESET := \033[0m
 GREEN := \033[32m
 BLUE := \033[34m
@@ -9,83 +10,109 @@ PURPLE := \033[35m
 BPURPLE := \033[1;95m
 BG := \033[46m
 
-#custom message
+#___custom_message___#
 HOORAY := $(PURPLE)\( ﾟヮﾟ)/‧₊˚❀༉‧₊˚.
 
+
 ############################################################################################
+#___directory,_library_and_file___#
 
-OBJ_DIR = objs
+UNAME = $(shell uname -s)
 
+
+#__libft___#
 LIBFT_PATH = srcs/libft
-LIBFT = srcs/libft/libft.a
+LIBFT = $(LIBFT_PATH)/libft.a
 
-MLX_DIR = srcs/mlx
-MLX_LIB = $(MLX_DIR)/libmlx_$(UNAME).a
-ifeq ($(shell uname), Linux)
-	MLX_FLAGS = -Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11
-else
-	MLX_FLAGS = -Lmlx -lmlx -L/usr/X11/lib -lXext -lX11 -framework OpenGL -framework AppKit
-endif
+#___mlx___#
+MLX_PATH = srcs/mlx
+MLX = $(MLX_PATH)/libmlx_$(UNAME).a
 
-SRC_FILES =	
+#___source___#
+SRC_FILES =	test.c
 SRC = $(addprefix srcs/, $(SRC_FILES))
 
-############################################################################################
+#___object___#
+OBJ_DIR = objs
+OBJS := $(SRC:srcs/%.c=$(OBJ_DIR)/%.o)
 
-ifeq ($(shell uname), Linux)
-	INCLUDES = -I/usr/include -Imlx
+
+############################################################################################
+#___header_files___#
+
+#DirectX11 and Minilbx header
+ifeq ($(UNAME), Linux)
+	INCLUDES = -I/usr/include -Isrcs/mlx
 else
-	INCLUDES = -I/opt/X11/include -Imlx
+	INCLUDES = -I/opt/X11/include -Isrcs/mlx
 endif
+
+#so long header
+# HF = -I./
+
+
+############################################################################################
+#___compile_flag_and_args___#
 
 FLAG ?= 0
 AR = ar rcs
 RM = rm -rf
 
-#toggle to disable Address Sanitizer for debug usage
+#[DEBUG]AdressSaniter; toggle flag to turn it off
 ifeq ($(FLAG), 1)
-	CFLAGS = -Wall -Wextra -Werror -I$(INCLUDES)
+	CFLAGS = -Wall -Wextra -Werror $(INCLUDES)
 else
-	CFLAGS = -Wall -Wextra -Werror -I$(INCLUDES) -fsanitize=address -g3
+	CFLAGS = -Wall -Wextra -Werror $(INCLUDES) -fsanitize=address -g3
 endif
 
-OBJS := $(SRC:srcs/%.c=$(OBJ_DIR)/%.o)
+#for Minilbx, depend on OS
+ifeq ($(UNAME), Linux)
+	MLX_FLAGS = -lXext -lX11 -lm -lbsd
+else
+	MLX_FLAGS = lXext -lX11 -framework OpenGL -framework AppKit
+endif
 
-$(OBJ_DIR)/%.o: srcs/%.c | $(OBJ_DIR)
-	@gcc $(CFLAGS) -c $< -o $@
 
 ############################################################################################
+#___main_target___#
 
-all: $(MLX_LIB) $(NAME)
+all: $(NAME)
 
 echo_flag:
 	@echo "$(BG)FLAG = $(CFLAGS)$(RESET)"
 
-$(NAME): echo_flag $(OBJS)
-	@make -C $(LIBFT_PATH)
-	@gcc $(CFLAGS) $(OBJS) $(LIBFT) $(MLX_LIB) -o $(NAME)
+$(NAME): echo_flag _libft _mlx $(OBJS) $(LIBFT) $(MLX)
+	@gcc $(CFLAGS) $(MLX_FLAGS) $(OBJS) $(LIBFT) $(MLX) -o $(NAME)
 	@echo "$(GREEN)$(NAME)$(BLUE) is ready $(HOORAY)$(RESET)"
-
-$(MLX_LIB):
-	@make -C $(MLX_DIR)
 
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
 
+$(OBJ_DIR)/%.o: srcs/%.c | $(OBJ_DIR)
+	@gcc $(CFLAGS) -c $< -o $@
+
+_libft:
+	@make -C $(LIBFT_PATH)
+
+_mlx:
+	@make -C $(MLX_PATH)
+
+
 ############################################################################################
+#___others___#
 
 clean:
 	@make clean -C $(LIBFT_PATH)
+	@make clean -C $(MLX_PATH)
 	@$(RM) $(OBJS) $(OBJ_DIR)
-	@echo "$(YELLOW)Remove pipex object files$(RESET)"
+	@echo "$(YELLOW)Remove So Long's object files$(RESET)"
 
 fclean: clean
-	@make fclean -C $(LIBFT_PATH) | grep -v "Remove libft object files"
+	@make fclean -C $(LIBFT_PATH) | grep -v "Remove Libft's object files"
 	@$(RM) $(NAME)
-	@echo "$(YELLOW)Remove $(NAME) program $(RESET)"
+	@echo "$(YELLOW)Remove program $(NAME) $(RESET)"
 	@echo "$(BPURPLE)EVERYTING CLEAR (っ˘ڡ˘ς)♡$(RESET)"
 
 re: fclean all
-
 
 .PHONY: all clean fclean re
