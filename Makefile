@@ -69,7 +69,7 @@ endif
 ifeq ($(UNAME), Linux)
 	MLX_FLAGS = -lXext -lX11 -lm -lbsd
 else
-	MLX_FLAGS = lXext -lX11 -framework OpenGL -framework AppKit
+	MLX_FLAGS = -lXext -lX11 -framework OpenGL -framework AppKit
 endif
 
 
