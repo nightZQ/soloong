@@ -6,7 +6,7 @@
 /*   By: zgoh <zgoh@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 21:54:04 by zgoh              #+#    #+#             */
-/*   Updated: 2024/07/29 04:20:19 by zgoh             ###   ########.fr       */
+/*   Updated: 2024/07/31 19:07:09 by zgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define SO_LONG_H
 
 # include "srcs/libft/includes/libft.h"
-# include "srcs/mlx/mlx.h"
+# include "mlx.h"
 ///////////////////////////////////////////////////////
 //open()
 # include <fcntl.h>

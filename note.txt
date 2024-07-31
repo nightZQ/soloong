@@ -5,6 +5,7 @@ X11 cant used on Mac
 Makefile (small change)
 >detect OS
 >only continue if Linux / Darwin
+>define flag based on OS
 
 Key
 >need define myself

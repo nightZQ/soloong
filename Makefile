@@ -17,15 +17,9 @@ HOORAY := $(PURPLE)\( ﾟヮﾟ)/‧₊˚❀༉‧₊˚.
 ############################################################################################
 #___directory,_library_and_file___#
 
-UNAME = $(shell uname -s)
-
 #__libft___#
 LIBFT_PATH = srcs/libft
 LIBFT = $(LIBFT_PATH)/libft.a
-
-#___mlx___#
-MLX_PATH = srcs/mlx
-MLX = $(MLX_PATH)/libmlx.a
 
 #___source___#
 SRC_FILES =	test_window.c
@@ -46,8 +40,8 @@ else if ($(UNAME), Darwin)
 	INCLUDES = -I/opt/X11/include
 endif
 
-#so long header
-# HF = -I./
+# #so long header
+# # HF = -I./
 
 
 ############################################################################################
@@ -64,11 +58,17 @@ else
 	CFLAGS = -Wall -Wextra -Werror $(INCLUDES) -fsanitize=address -g3
 endif
 
+UNAME = $(shell uname -s)
+
 #for Minilbx, depend on OS
-ifeq ($(UNAME), Linux)
-	MLX_FLAGS = -lXext -lX11 -lm -lbsd
+ifneq ($(UNAME), Linux)
+	MLX_FLAGS = -lmlx -lXext -lX11 -lm -lbsd
+	MLX_PATH = srcs/mlx_linux
 else ($(UNAME), Darwin)
-	MLX_FLAGS = -lmlx -lXext -lX11 -framework OpenGL -framework AppKit
+	MLX_FLAGS = -lmlx -framework OpenGL -framework AppKit
+	MLX_PATH = srcs/mlx_mac
+else
+	$(Unrecognized OS)
 endif
 
 
