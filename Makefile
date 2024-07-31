@@ -35,13 +35,13 @@ OBJS := $(SRC:srcs/%.c=$(OBJ_DIR)/%.o)
 
 #DirectX11 and Minilbx header
 ifeq ($(UNAME), Linux)
-	INCLUDES = -I/usr/include -Isrcs/mlx
+	INCLUDES = -I/usr/include -Isrcs/mlx_linux
 else ($(UNAME), Darwin)
-	INCLUDES = -I/opt/X11/include
+	INCLUDES = -I/opt/X11/include -Imlx
 endif
 
-# #so long header
-# # HF = -I./
+#so long header
+#HEADER= -Iincludes
 
 
 ############################################################################################
@@ -61,8 +61,8 @@ endif
 UNAME = $(shell uname -s)
 
 #for Minilbx, depend on OS
-ifneq ($(UNAME), Linux)
-	MLX_FLAGS = -lmlx -lXext -lX11 -lm -lbsd
+ifeq ($(UNAME), Linux)
+	MLX_FLAGS = -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 	MLX_PATH = srcs/mlx_linux
 else ($(UNAME), Darwin)
 	MLX_FLAGS =  -Lmlx -lmlx -framework OpenGL -framework
@@ -72,10 +72,11 @@ else
 endif
 
 #MLX = $(MLX_PATH)/libmlx.a
-ifneq ($(UNAME), Linux)
+ifeq ($(UNAME), Linux)
 	MLX = $(MLX_PATH)/libmlx_Linux.a
 else
 	MLX = $(MLX_PATH)/libmlx.dylib
+endif
 
 ############################################################################################
 #___main_target___#
