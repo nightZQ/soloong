@@ -1,4 +1,4 @@
-#include "./mlx/mlx.h"
+	#include "./mlx/mlx.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <X11/X.h>
@@ -36,7 +36,7 @@ int main(void)
 	data.mlx_ptr = mlx_init();
 	if (!data.mlx_ptr)
 		return (1);
-	data.win_ptr = mlx_new_window(data.mlx_ptr, 600, 400, "hi :)");
+	data.win_ptr = mlx_new_window(data.mlx_ptr, 896, 320, "Meow & Sushi (so_long)");
 	if (!data.win_ptr)
 		return (free(data.mlx_ptr), 1);
  

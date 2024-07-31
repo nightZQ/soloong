@@ -29,7 +29,7 @@ MLX_PATH = srcs/mlx
 MLX = $(MLX_PATH)/libmlx_$(UNAME).a
 
 #___source___#
-SRC_FILES =	test.c
+SRC_FILES =	test_window.c
 SRC = $(addprefix srcs/, $(SRC_FILES))
 
 #___object___#

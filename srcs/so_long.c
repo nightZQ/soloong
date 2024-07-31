@@ -1,19 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zgoh <zgoh@student.42kl.edu.my>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 18:07:58 by zgoh              #+#    #+#             */
-/*   Updated: 2024/07/28 23:09:41 by zgoh             ###   ########.fr       */
+/*   Updated: 2024/07/29 03:58:56 by zgoh             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	prep_game(char *mapfile)
+void	prep_game(char *map)
 {
+	t_data	*data;
+
+	init_window(data);
 }
 
 int	main(int argc, char *argv)
