@@ -1,2 +1,11 @@
 X11 cant used on Mac
 >the function related to X11 need to rewriet or hardcore
+>need function that support both OS
+
+Makefile (small change)
+>detect OS
+>only continue if Linux / Darwin
+
+Key
+>need define myself
+>x.h cant use
