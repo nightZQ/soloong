@@ -1,0 +1,2 @@
+X11 cant used on Mac
+>the function related to X11 need to rewriet or hardcore
