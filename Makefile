@@ -36,7 +36,7 @@ OBJS := $(SRC:srcs/%.c=$(OBJ_DIR)/%.o)
 #DirectX11 and Minilbx header
 ifeq ($(UNAME), Linux)
 	INCLUDES = -I/usr/include -Isrcs/mlx
-else if ($(UNAME), Darwin)
+else ($(UNAME), Darwin)
 	INCLUDES = -I/opt/X11/include
 endif
 
@@ -65,12 +65,17 @@ ifneq ($(UNAME), Linux)
 	MLX_FLAGS = -lmlx -lXext -lX11 -lm -lbsd
 	MLX_PATH = srcs/mlx_linux
 else ($(UNAME), Darwin)
-	MLX_FLAGS = -lmlx -framework OpenGL -framework AppKit
+	MLX_FLAGS =  -Lmlx -lmlx -framework OpenGL -framework
 	MLX_PATH = srcs/mlx_mac
 else
 	$(Unrecognized OS)
 endif
 
+#MLX = $(MLX_PATH)/libmlx.a
+ifneq ($(UNAME), Linux)
+	MLX = $(MLX_PATH)/libmlx_Linux.a
+else
+	MLX = $(MLX_PATH)/libmlx.dylib
 
 ############################################################################################
 #___main_target___#
