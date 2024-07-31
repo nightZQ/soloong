@@ -19,14 +19,13 @@ HOORAY := $(PURPLE)\( ﾟヮﾟ)/‧₊˚❀༉‧₊˚.
 
 UNAME = $(shell uname -s)
 
-
 #__libft___#
 LIBFT_PATH = srcs/libft
 LIBFT = $(LIBFT_PATH)/libft.a
 
 #___mlx___#
 MLX_PATH = srcs/mlx
-MLX = $(MLX_PATH)/libmlx_$(UNAME).a
+MLX = $(MLX_PATH)/libmlx.a
 
 #___source___#
 SRC_FILES =	test_window.c
@@ -43,8 +42,8 @@ OBJS := $(SRC:srcs/%.c=$(OBJ_DIR)/%.o)
 #DirectX11 and Minilbx header
 ifeq ($(UNAME), Linux)
 	INCLUDES = -I/usr/include -Isrcs/mlx
-else
-	INCLUDES = -I/opt/X11/include -Isrcs/mlx
+else if ($(UNAME), Darwin)
+	INCLUDES = -I/opt/X11/include
 endif
 
 #so long header
@@ -68,8 +67,8 @@ endif
 #for Minilbx, depend on OS
 ifeq ($(UNAME), Linux)
 	MLX_FLAGS = -lXext -lX11 -lm -lbsd
-else
-	MLX_FLAGS = -lXext -lX11 -framework OpenGL -framework AppKit
+else ($(UNAME), Darwin)
+	MLX_FLAGS = -lmlx -lXext -lX11 -framework OpenGL -framework AppKit
 endif
 
 
